@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'infra/**'
+    paths:
+      - 'src/**'
 
 jobs:
   ci:
@@ -40,6 +40,8 @@ jobs:
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_REGISTRY }}
           docker tag hello-world-app:${{ env.IMAGE_TAG }} ${{ secrets.AWS_REGISTRY }}/hello-world-app:${{ env.IMAGE_TAG }}
           docker push ${{ secrets.AWS_REGISTRY }}/hello-world-app:${{ env.IMAGE_TAG }}
+          docker push ${{ secrets.AWS_REGISTRY }}/hello-world-app:latest
+
 
   cd:
     runs-on: ubuntu-latest
@@ -59,30 +61,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Create terraform.tfvars
-        working-directory: ./infra
-        run: |
-          cat << EOF > terraform.tfvars
-          aws_region                                   = "eu-central-1"
-          vpc_name                                     = "aviv-main-vpc"
-          vpc_cidr_block                               = "10.0.0.0/16"
-          private_subnet_cidrs                         = ["10.0.1.0/24", "10.0.2.0/24"]
-          public_subnet_cidrs                          = ["10.0.101.0/24", "10.0.102.0/24"]
-          vpc_owner                                    = "aviv_s"
-          ecr_repository_name                          = "hello-world-app"
-          image_tag_mutability                         = "MUTABLE"
-          ecs_task_definition_name                     = "hello-world-app"
-          ecs_task_definition_requires_compatibilities = ["FARGATE"]
-          ecs_task_definition_family                   = "hello-world-app"
-          ecs_task_definition_network_mode             = "awsvpc"
-          ecs_task_definition_cpu                      = "256"
-          ecs_task_definition_memory                   = "512"
-          ecs_container_name                           = "hello-world"
-          ecs_container_image                          = "753392824297.dkr.ecr.eu-central-1.amazonaws.com/hello-world-app"
-          image_tag                                    = "c4baa27"
-          ecs_container_port                           = 8000
-          EOF
   
       - name: Update ECS service
         working-directory: ./infra
@@ -92,4 +70,5 @@ jobs:
             -backend-config="region=eu-central-1" \
             -backend-config="key=terraform.tfstate"
           terraform apply -auto-approve \
+            var
             -var="image_tag=${{ needs.ci.outputs.image_tag }}"
