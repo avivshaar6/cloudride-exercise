@@ -1,5 +1,6 @@
 from flask import (
     Flask,
+    request,
     jsonify
 )
 import os
@@ -22,6 +23,7 @@ def hello_world():
         
         return jsonify({
             "status_code": 200,
+            "path": request.path,
             "status": "healthy",
             "message": "Hello, World!",
             "version": APP_VERSION
@@ -32,6 +34,7 @@ def hello_world():
         
         return jsonify({
             "status_code": 500,
+            "path": request.path,
             "status": "unhealthy",
             "message": "Error calling Hello World endpoint",
             "version": APP_VERSION
@@ -43,6 +46,7 @@ def not_found(error):
     
     return jsonify({
         "status_code": 404,
+        "path": request.path,
         "status": "error",
         "message": "Path not found",
         "version": APP_VERSION
