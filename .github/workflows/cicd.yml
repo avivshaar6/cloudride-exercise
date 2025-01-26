@@ -70,11 +70,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
   
-      - name: Update ECS service
+      - name: Deploy ECS service
         working-directory: ./infra
         run: |
           terraform init 
           
           terraform apply -auto-approve \
           -var-file="envs/prod.tfvars" \
-          -var="image_tag=${{ needs.ci.outputs.image_tag }}"
+          -var="image_tag=${{ needs.ci.outputs.image_tag }}" \
+          --target=aws_ecs_service.app \
+          --target=aws_ecs_task_definition.app \
+          --target=aws_appautoscaling_target.ecs_target

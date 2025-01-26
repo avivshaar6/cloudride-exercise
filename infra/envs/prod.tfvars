@@ -14,5 +14,4 @@ ecs_task_definition_cpu                      = "256"
 ecs_task_definition_memory                   = "512"
 ecs_container_name                           = "hello-world"
 ecs_container_image                          = "753392824297.dkr.ecr.eu-central-1.amazonaws.com/hello-world-app"
-image_tag                                    = "c4baa27"
 ecs_container_port                           = 8000
