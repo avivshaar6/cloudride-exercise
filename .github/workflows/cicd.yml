@@ -63,8 +63,5 @@ jobs:
       - name: Update ECS service
         working-directory: ./infra
         run: |
-          terraform init \
-            -backend-config={{vars.S3_BUCKET}} \
-            -backend-config={{secrets.AWS_REGION}} \
-            -backend-config={{vars.TERRAFORM_TFSTATE}}
+          terraform init
           terraform apply -auto-approve -var "image_tag=${{ needs.ci.outputs.image_tag }}"
