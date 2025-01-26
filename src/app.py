@@ -21,6 +21,7 @@ def hello_world():
         logger.info('Hello World endpoint was called')
         
         return jsonify({
+            "status_code": 200,
             "status": "healthy",
             "message": "Hello, World!",
             "version": APP_VERSION
@@ -30,6 +31,7 @@ def hello_world():
         logger.error(f'Error calling Hello World endpoint: {e}')
         
         return jsonify({
+            "status_code": 500,
             "status": "unhealthy",
             "message": "Error calling Hello World endpoint",
             "version": APP_VERSION
@@ -40,10 +42,12 @@ def not_found(error):
     logger.error(f'Path not found: {error}')
     
     return jsonify({
+        "status_code": 404,
         "status": "error",
         "message": "Path not found",
         "version": APP_VERSION
     }), 404
+
 
 if __name__ == '__main__':
     try:    
