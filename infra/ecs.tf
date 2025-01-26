@@ -29,6 +29,12 @@ resource "aws_ecs_task_definition" "app" {
       name      = var.ecs_container_name
       image     = "${var.ecs_container_image}:${var.image_tag}"
       essential = true
+      environment = [
+        {
+          name  = "APP_VERSION"
+          value = var.image_tag
+        }
+      ]
       portMappings = [
         {
           containerPort = var.ecs_container_port
