@@ -13,7 +13,7 @@ app = Flask(__name__)
 def hello_world():
     logger.info('Hello World endpoint was called')
     # return 'Hello, World!'
-    return 'Hello, World! 9'
+    return 'Hello, World! 10'
 
 if __name__ == '__main__':
     logger.info(f'Starting application on port {APP_PORT}')
