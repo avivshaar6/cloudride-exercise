@@ -67,10 +67,4 @@ jobs:
             -backend-config="bucket=aviv-tf-state" \
             -backend-config="region=eu-central-1" \
             -backend-config="key=terraform.tfstate"
-          terraform apply -auto-approve \
-            -var "aws_region=eu-central-1" \
-            -var "image_tag=${{ needs.ci.outputs.image_tag }}" \
-            -var "ecr_repository_name=hello-world-app" \
-            -var "ecs_cluster_name=hello-world-cluster" \
-            -var "ecs_container_name=hello-world" \
-            -var "ecs_container_port=8000"
+          terraform apply -var="image_tag=${{ needs.ci.outputs.image_tag }}"
