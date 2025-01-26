@@ -74,4 +74,6 @@ jobs:
             -var="ecr_repository_name=hello-world-app" \
             -var="ecs_cluster_name=hello-world-cluster" \
             -var="ecs_container_name=hello-world" \
+            -var="ecs_task_definition_cpu=256" \
+            -var="ecs_task_definition_memory=512" \
             -var="ecs_container_port=8000"
