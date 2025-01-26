@@ -17,14 +17,39 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    logger.info('Hello World endpoint was called')
+    try:
+        logger.info('Hello World endpoint was called')
+        
+        return jsonify({
+            "status": "healthy",
+            "message": "Hello, World!",
+            "version": APP_VERSION
+        }), 200
+    
+    except Exception as e:
+        logger.error(f'Error calling Hello World endpoint: {e}')
+        
+        return jsonify({
+            "status": "unhealthy",
+            "message": "Error calling Hello World endpoint",
+            "version": APP_VERSION
+        }), 500
+    
+@app.errorhandler(404)
+def not_found(error):
+    logger.error(f'Path not found: {error}')
     
     return jsonify({
-        "status": "healthy",
-        "message": "Hello, World!",
+        "status": "error",
+        "message": "Path not found",
         "version": APP_VERSION
-    })
+    }), 404
 
 if __name__ == '__main__':
-    logger.info(f'Starting application on port {APP_PORT}')
-    app.run(host=APP_HOST, port=APP_PORT, debug=False)
+    try:    
+        logger.info(f'Starting application on port {APP_PORT}')
+        app.run(host=APP_HOST, port=APP_PORT, debug=False)
+    
+    except Exception as e:
+        logger.error(f'Error starting application: {e}')
+        raise e
