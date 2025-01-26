@@ -26,7 +26,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
   resource_id        = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.app.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
-  role_arn          = aws_iam_role.ecs_autoscale_role.arn
+  role_arn           = aws_iam_role.ecs_autoscale_role.arn
 }
 
 resource "aws_appautoscaling_policy" "ecs_policy_cpu" {
@@ -40,7 +40,7 @@ resource "aws_appautoscaling_policy" "ecs_policy_cpu" {
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageCPUUtilization"
     }
-    target_value = 80.0
+    target_value       = 80.0
     scale_in_cooldown  = 300
     scale_out_cooldown = 300
   }

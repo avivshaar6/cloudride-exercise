@@ -43,6 +43,11 @@ variable "ecs_task_definition_name" {
   default = "hello-world-app"
 }
 
+variable "ecs_service_name" {
+  type    = string
+  default = "hello-world-service"
+}
+
 variable "ecs_task_definition_family" {
   type    = string
   default = "hello-world-app"

@@ -7,6 +7,7 @@ vpc_owner                                    = "aviv_s"
 ecr_repository_name                          = "hello-world-app"
 image_tag_mutability                         = "MUTABLE"
 ecs_task_definition_name                     = "hello-world-app"
+ecs_service_name                             = "hello-world-service"
 ecs_task_definition_requires_compatibilities = ["FARGATE"]
 ecs_task_definition_family                   = "hello-world-app"
 ecs_task_definition_network_mode             = "awsvpc"

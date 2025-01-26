@@ -1,10 +1,9 @@
-# Application Load Balancer
 resource "aws_lb" "main" {
   name               = "hello-world-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
-  subnets           = module.vpc.public_subnets
+  subnets            = module.vpc.public_subnets
 }
 
 resource "aws_lb_target_group" "app" {
@@ -16,11 +15,11 @@ resource "aws_lb_target_group" "app" {
 
   health_check {
     healthy_threshold   = "3"
-    interval           = "30"
-    protocol           = "HTTP"
-    matcher            = "200"
-    timeout            = "3"
-    path              = "/"
+    interval            = "30"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "3"
+    path                = "/"
     unhealthy_threshold = "2"
   }
 }
