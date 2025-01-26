@@ -5,6 +5,35 @@ resource "aws_ecs_cluster" "main" {
     name  = "containerInsights"
     value = "enabled"
   }
+  configuration {
+    execute_command_configuration {
+      logging = "OVERRIDE"
+      log_configuration {
+        cloud_watch_log_group_name = aws_cloudwatch_log_group.ecs_insights.name
+      }
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "ecs_insights" {
+  name              = "/aws/ecs/containerinsights/${var.ecs_cluster_name}/performance"
+  retention_in_days = 30
+  skip_destroy = true
+
+  tags = {
+    Owner = var.vpc_owner
+  }
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes = [
+      tags,
+    ]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_container_insights" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
 resource "aws_cloudwatch_log_group" "ecs_logs" {
