@@ -76,4 +76,5 @@ jobs:
             -var="ecs_container_name=hello-world" \
             -var="ecs_task_definition_cpu=256" \
             -var="ecs_task_definition_memory=512" \
+            -var="ecs_task_definition_requires_compatibilities=FARGATE" \
             -var="ecs_container_port=8000"
