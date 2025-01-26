@@ -5,6 +5,8 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+APP_PORT = int(os.environ.get('APP_PORT', 8000))
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -14,6 +16,5 @@ def hello_world():
     return 'Hello, World! 9'
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8000))
-    logger.info(f'Starting application on port {port}')
-    app.run(host='0.0.0.0', port=port, debug=False)
+    logger.info(f'Starting application on port {APP_PORT}')
+    app.run(host='0.0.0.0', port=APP_PORT, debug=False)
