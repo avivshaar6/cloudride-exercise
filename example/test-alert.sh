@@ -1,0 +1,1 @@
+for i in {1..100}; do curl http://hello-world-alb-40429709.eu-central-1.elb.amazonaws.com/test/$i; done
