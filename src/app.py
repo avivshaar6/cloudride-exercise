@@ -19,7 +19,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     try:
-        logger.info('Hello World endpoint was called')
+        logger.info(f'Hello World endpoint was called with path {request.path}')
         
         return jsonify({
             "status_code": 200,
@@ -30,7 +30,7 @@ def hello_world():
         }), 200
     
     except Exception as e:
-        logger.error(f'Error calling Hello World endpoint: {e}')
+        logger.error(f'Error calling Hello World endpoint with path {request.path}: {e}')
         
         return jsonify({
             "status_code": 500,
@@ -42,7 +42,7 @@ def hello_world():
     
 @app.errorhandler(404)
 def not_found(error):
-    logger.error(f'Path not found: {error}')
+    logger.error(f'Path {request.path} not found: {error}')
     
     return jsonify({
         "status_code": 404,
