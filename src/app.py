@@ -10,7 +10,8 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     logger.info('Hello World endpoint was called')
-    return 'Hello, World!'
+    # return 'Hello, World!'
+    return 'Hello, World! 2'
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
