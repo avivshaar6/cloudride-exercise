@@ -6,7 +6,7 @@ This project demonstrates a complete AWS infrastructure deployment using Terrafo
 
 The infrastructure consists of:
 - VPC with 4 subnets (2 public, 2 private) across 2 AZs
-- ECS Fargate cluster running a Hello World application
+- ECS cluster running a Hello World application
 - Application Load Balancer for public access
 - Auto-scaling configuration
 - CloudWatch monitoring and alerting
@@ -31,7 +31,7 @@ The infrastructure consists of:
 - Internet Gateway for public subnet access
 
 ### Container Infrastructure
-- ECS Fargate cluster
+- ECS cluster
 - Service auto-scaling (min 2, max 4 tasks)
 - CPU-based auto-scaling policy
 - Application Load Balancer with HTTP listener
@@ -89,18 +89,18 @@ terraform apply -var-file=envs/prod.tfvars --var=image_tag=<image_tag>
 
 ## Testing the Alert System
 
-The `example` folder contains scripts to test the monitoring system:
+The `scripts` folder contains scripts to test the monitoring system:
 
 1. Clean up the alarm state:
 
 ```
-./example/clean-cloudwatch-alarm-status.sh
+./scripts/clean-cloudwatch-alarm-status.sh
 ```
 
 2. Generate test errors:
 
 ```
-./example/test-alert.sh
+./scripts/test-alert.sh
 ```
 
 ## Terraform Resources
