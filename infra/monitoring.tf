@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "container_errors_email" {
 resource "aws_cloudwatch_log_metric_filter" "container_errors" {
   name           = "container-error-count"
   pattern        = "[ERROR, Error, error]"  
-  log_group_name = "/ecs/${var.ecs_container_name}"
+  log_group_name = "/ecs/${var.app_name}"
 
   metric_transformation {
     name          = "ContainerErrorCount"
@@ -35,7 +35,7 @@ resource "aws_cloudwatch_metric_alarm" "container_error_count" {
   alarm_actions = [aws_sns_topic.container_errors.arn]
 
   tags = {
-    Service     = var.ecs_service_name
+    Service     = "${var.app_name}-service"
   }
 
   depends_on = [aws_cloudwatch_log_metric_filter.container_errors]

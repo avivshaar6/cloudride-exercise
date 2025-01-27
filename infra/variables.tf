@@ -2,6 +2,10 @@ variable "aws_region" {
   type = string
 }
 
+variable "app_name" {
+  type = string
+}
+
 variable "vpc_name" {
   type = string
 }
@@ -24,56 +28,6 @@ variable "vpc_owner" {
   type = string
 }
 
-variable "ecr_repository_name" {
-  type = string
-}
-
-variable "image_tag_mutability" {
-  type    = string
-  default = "MUTABLE"
-}
-
-variable "ecs_cluster_name" {
-  type    = string
-  default = "hello-world-cluster"
-}
-
-variable "ecs_task_definition_name" {
-  type    = string
-  default = "hello-world-app"
-}
-
-variable "ecs_service_name" {
-  type    = string
-  default = "hello-world-service"
-}
-
-variable "ecs_task_definition_family" {
-  type    = string
-  default = "hello-world-app"
-}
-
-variable "ecs_task_definition_network_mode" {
-  type    = string
-  default = "awsvpc"
-}
-
-variable "ecs_task_definition_requires_compatibilities" {
-  type = list(string)
-}
-
-variable "ecs_task_definition_cpu" {
-  type    = string
-}
-
-variable "ecs_task_definition_memory" {
-  type    = string
-}
-
-variable "ecs_container_name" {
-  type    = string
-}
-
 variable "ecs_container_image" {
   type = string
 }
@@ -83,5 +37,21 @@ variable "ecs_container_port" {
 }
 
 variable "image_tag" {
+  type = string
+}
+
+variable "load_balancer_type" {
+  type = string
+}
+
+variable "alb_listener_front_end_port" {
+  type = number
+}
+
+variable "alb_listener_protocol" {
+  type = string
+}
+
+variable "alb_target_type" {
   type = string
 }

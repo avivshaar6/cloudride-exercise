@@ -1,17 +1,17 @@
 resource "aws_lb" "main" {
-  name               = "hello-world-alb"
+  name               = "${var.app_name}-alb"
   internal           = false
-  load_balancer_type = "application"
+  load_balancer_type = var.load_balancer_type
   security_groups    = [aws_security_group.alb.id]
   subnets            = module.vpc.public_subnets
 }
 
 resource "aws_lb_target_group" "app" {
-  name        = "hello-world-tg"
-  port        = 8000
-  protocol    = "HTTP"
+  name        = "${var.app_name}-tg"
+  port        = var.alb_listener_front_end_port
+  protocol    = var.alb_listener_protocol
   vpc_id      = module.vpc.vpc_id
-  target_type = "ip"
+  target_type = var.alb_target_type
 
   health_check {
     healthy_threshold   = "3"

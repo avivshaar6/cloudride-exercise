@@ -1,5 +1,5 @@
 resource "aws_security_group" "alb" {
-  name        = "hello-world-alb"
+  name        = "${var.app_name}-alb"
   description = "ALB Security Group"
   vpc_id      = module.vpc.vpc_id
 
@@ -19,7 +19,7 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_security_group" "ecs_tasks" {
-  name        = "hello-world-tasks"
+  name        = "${var.app_name}-tasks"
   description = "ECS Tasks Security Group"
   vpc_id      = module.vpc.vpc_id
 

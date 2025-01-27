@@ -52,7 +52,6 @@ The infrastructure consists of:
 
 A simple Flask application that:
 - Responds with a "Hello World" message
-- Includes health check endpoint
 - Provides version information
 - Implements error handling and logging
 
@@ -79,7 +78,7 @@ export AWS_REGION="eu-central-1"
 ```
 cd infra
 terraform init
-terraform apply -var-file="envs/prod.tfvars"
+terraform apply -var-file=envs/prod.tfvars --var=image_tag=<image_tag>
 ```
 
 3. Configure GitHub repository secrets:

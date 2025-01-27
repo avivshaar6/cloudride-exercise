@@ -52,7 +52,6 @@ def not_found(error):
         "version": APP_VERSION
     }), 404
 
-
 if __name__ == '__main__':
     try:    
         logger.info(f'Starting application on port {APP_PORT}')
