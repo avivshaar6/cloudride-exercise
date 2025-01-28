@@ -25,7 +25,7 @@ def hello_world():
             "status_code": 200,
             "path": request.path,
             "status": "healthy",
-            "message": "Hello, World!",
+            "message": "Hello, World! test",
             "version": APP_VERSION
         }), 200
     
